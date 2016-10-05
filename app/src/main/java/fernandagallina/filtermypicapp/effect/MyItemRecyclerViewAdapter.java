@@ -1,4 +1,4 @@
-package fernandagallina.filtermypicapp;
+package fernandagallina.filtermypicapp.effect;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fernandagallina.filtermypicapp.EffectFragment.OnListFragmentInteractionListener;
-import fernandagallina.filtermypicapp.EffectContent.EffectItem;
+import fernandagallina.filtermypicapp.effect.EffectContent.EffectItem;
+import fernandagallina.filtermypicapp.R;
 
 import java.util.List;
 
@@ -48,6 +49,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
+
+
             }
         });
     }

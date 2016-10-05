@@ -1,4 +1,4 @@
-package fernandagallina.filtermypicapp;
+package fernandagallina.filtermypicapp.camera;
 
 import android.app.Activity;
 import android.content.Context;

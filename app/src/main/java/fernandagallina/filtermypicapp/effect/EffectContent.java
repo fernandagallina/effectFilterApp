@@ -1,9 +1,11 @@
-package fernandagallina.filtermypicapp;
+package fernandagallina.filtermypicapp.effect;
 
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fernandagallina.filtermypicapp.R;
 
 /**
  * Created by fernanda on 05/10/16.

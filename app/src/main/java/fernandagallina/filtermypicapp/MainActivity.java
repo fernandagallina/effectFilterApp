@@ -12,6 +12,8 @@ import android.os.Bundle;
 
 import java.io.File;
 
+import fernandagallina.filtermypicapp.effect.EffectContent;
+
 public class MainActivity extends AppCompatActivity implements EffectFragment.OnListFragmentInteractionListener {
 
     // Storage Permissions
@@ -93,13 +95,23 @@ public class MainActivity extends AppCompatActivity implements EffectFragment.On
                 }
         }
 
+        if(imageUri != null) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.activity_main, new EffectFragment().newInstance(imageUri.toString()))
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
         getFragmentManager().beginTransaction()
-            .replace(R.id.activity_main, new EffectFragment().newInstance(imageUri.toString()))
+            .replace(R.id.activity_main, new CaptureChoiceFragment())
             .commit();
     }
 
     @Override
     public void onListFragmentInteraction(EffectContent.EffectItem item) {
-
     }
 }

@@ -1,4 +1,4 @@
-package fernandagallina.filtermypicapp;
+package fernandagallina.filtermypicapp.camera;
 
 import android.app.Fragment;
 import android.hardware.Camera;
@@ -20,6 +20,7 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import fernandagallina.filtermypicapp.R;
 
 import static android.content.ContentValues.TAG;
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;

@@ -32,7 +32,7 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <android.opengl.GLSurfaceView
         android:id="@+id/image_preview"
         android:layout_above="@id/effect_layout"
         android:layout_width="match_parent"
