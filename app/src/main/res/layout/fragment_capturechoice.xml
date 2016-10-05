@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/background_image"
+        android:background="@drawable/background"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_alignBottom="@id/background_image"
+        android:background ="#99000000">
+
+        <ImageButton
+            android:id="@+id/camera_button"
+            android:layout_toStartOf="@+id/empty_view"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:background="@drawable/camera"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/camera_button_name"/>
+
+        <View
+            android:id="@+id/empty_view"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:id="@+id/galeria_button"
+            android:layout_toEndOf="@id/empty_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/galeria"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/galeria_button_name"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
