@@ -104,8 +104,6 @@ public class MainActivity extends AppCompatActivity implements EffectFragment.On
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-
         getFragmentManager().beginTransaction()
             .replace(R.id.activity_main, new CaptureChoiceFragment())
             .commit();
