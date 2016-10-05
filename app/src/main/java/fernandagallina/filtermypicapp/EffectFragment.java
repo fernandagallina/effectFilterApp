@@ -153,12 +153,41 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
             case R.drawable.duotone:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_DUOTONE);
-                mEffect.setParameter("first_color", Color.YELLOW);
-                mEffect.setParameter("second_color", Color.DKGRAY);
+                mEffect.setParameter("first_color", Color.GREEN);
+                mEffect.setParameter("second_color", Color.BLUE);
                 break;
 
             case R.drawable.lomoish:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_LOMOISH);
+                break;
+
+            case R.drawable.blackwhite:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_BLACKWHITE);
+                mEffect.setParameter("black", .1f);
+                mEffect.setParameter("white", .7f);
+                break;
+
+            case R.drawable.negative:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_NEGATIVE);
+                break;
+
+            case R.drawable.posterize:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_POSTERIZE);
+                break;
+
+            case R.drawable.fisheye:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_FISHEYE);
+                mEffect.setParameter("scale", .5f);
+                break;
+
+            case R.drawable.tint:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_TINT);
+                mEffect.setParameter("tint", Color.MAGENTA);
+                break;
+
+            case R.drawable.vignette:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_VIGNETTE);
+                mEffect.setParameter("scale", .5f);
                 break;
 
             default:
@@ -173,18 +202,9 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
             mListener = new OnListFragmentInteractionListener() {
                 @Override
                 public void onListFragmentInteraction(EffectContent.EffectItem item) {
-                    switch (item.imageResource) {
-                        case R.drawable.duotone:
-                            mCurrentEffect = R.drawable.duotone;
-                            break;
 
-                        case R.drawable.lomoish:
-                            mCurrentEffect = R.drawable.lomoish;
-                            break;
+                    mCurrentEffect = item.imageResource;
 
-                        default:
-                            break;
-                    }
                     mEffectView.requestRender();
                 }
             };

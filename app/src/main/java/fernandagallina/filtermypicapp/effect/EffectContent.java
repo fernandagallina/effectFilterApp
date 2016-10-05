@@ -1,7 +1,5 @@
 package fernandagallina.filtermypicapp.effect;
 
-import android.widget.ImageView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,17 +13,29 @@ public class EffectContent {
 
     static String[] titleEffect = {
             "Lomoish",
-            "Duotone"
+            "Duotone",
+            "BlackWhite",
+            "Posterize",
+            "Tint",
+            "Vignette",
+            "FishEye",
+            "Negative"
     };
 
     static Integer[] imageId = {
             R.drawable.lomoish,
-            R.drawable.duotone
+            R.drawable.duotone,
+            R.drawable.blackwhite,
+            R.drawable.posterize,
+            R.drawable.tint,
+            R.drawable.vignette,
+            R.drawable.fisheye,
+            R.drawable.negative
     };
 
     public static final List<EffectItem> ITEMS = new ArrayList<>();
 
-    private static final int COUNT = 2;
+    private static final int COUNT = 8;
 
     static {
         // Add some sample items.
