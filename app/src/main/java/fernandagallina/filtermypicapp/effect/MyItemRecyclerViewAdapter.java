@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import fernandagallina.filtermypicapp.EffectFragment.OnListFragmentInteractionListener;
+import fernandagallina.filtermypicapp.fragment.EffectFragment.OnListFragmentInteractionListener;
 import fernandagallina.filtermypicapp.effect.EffectContent.EffectItem;
 import fernandagallina.filtermypicapp.R;
 

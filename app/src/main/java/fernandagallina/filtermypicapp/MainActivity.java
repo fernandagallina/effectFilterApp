@@ -13,6 +13,8 @@ import android.os.Bundle;
 import java.io.File;
 
 import fernandagallina.filtermypicapp.effect.EffectContent;
+import fernandagallina.filtermypicapp.fragment.CaptureChoiceFragment;
+import fernandagallina.filtermypicapp.fragment.EffectFragment;
 
 public class MainActivity extends AppCompatActivity implements EffectFragment.OnListFragmentInteractionListener {
 

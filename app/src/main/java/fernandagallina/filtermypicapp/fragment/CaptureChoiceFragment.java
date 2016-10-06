@@ -1,4 +1,4 @@
-package fernandagallina.filtermypicapp;
+package fernandagallina.filtermypicapp.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import fernandagallina.filtermypicapp.ImageSource;
+import fernandagallina.filtermypicapp.MainActivity;
+import fernandagallina.filtermypicapp.R;
 
 /**
  * Created by fernanda on 03/10/16.

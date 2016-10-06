@@ -1,8 +1,9 @@
-package fernandagallina.filtermypicapp;
+package fernandagallina.filtermypicapp.fragment;
 
 import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.effect.Effect;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,6 +38,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import fernandagallina.filtermypicapp.R;
 import fernandagallina.filtermypicapp.effect.EffectContent;
 import fernandagallina.filtermypicapp.effect.GLToolbox;
 import fernandagallina.filtermypicapp.effect.MyItemRecyclerViewAdapter;
@@ -62,8 +65,8 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
     @InjectView(R.id.save_button)
     ImageButton saveButton;
 
-    @InjectView(R.id.facebook_share)
-    ImageButton facebookShare;
+    @InjectView(R.id.share)
+    ImageButton shareButton;
 
     String stringUri;
     Bitmap bitmap;
@@ -101,7 +104,6 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             stringUri = getArguments().getString("image");
         }
-
     }
 
     @Override
@@ -117,7 +119,6 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
             bitmap = android.provider.MediaStore.Images.Media
                             .getBitmap(cr, uri);
 
-            //imagePreview.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -146,10 +147,31 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
                 saveImage();
             }
         });
+
+        shareButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                share();
+            }
+        });
+    }
+
+    public void share() {
+        final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/jpg");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, getImageUri());
+        startActivity(Intent.createChooser(shareIntent, "Share image using"));
+    }
+
+    public Uri getImageUri() {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, "Title", null);
+        return Uri.parse(path);
     }
 
     private void saveImage() {
-        FileOutputStream out = null;
+        FileOutputStream out;
         File file = new File(Environment.getExternalStorageDirectory(),  "effectPic.jpg");
         try {
             out = new FileOutputStream(file);
