@@ -161,10 +161,8 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_LOMOISH);
                 break;
 
-            case R.drawable.blackwhite:
-                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_BLACKWHITE);
-                mEffect.setParameter("black", .1f);
-                mEffect.setParameter("white", .7f);
+            case R.drawable.gray:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_GRAYSCALE);
                 break;
 
             case R.drawable.negative:
@@ -177,7 +175,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
             case R.drawable.fisheye:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_FISHEYE);
-                mEffect.setParameter("scale", .5f);
+                mEffect.setParameter("scale", .9f);
                 break;
 
             case R.drawable.tint:
@@ -188,6 +186,10 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
             case R.drawable.vignette:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_VIGNETTE);
                 mEffect.setParameter("scale", .5f);
+                break;
+
+            case R.drawable.sepia:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_SEPIA);
                 break;
 
             default:

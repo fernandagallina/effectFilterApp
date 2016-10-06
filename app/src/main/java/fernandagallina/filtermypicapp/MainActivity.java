@@ -16,18 +16,12 @@ import fernandagallina.filtermypicapp.effect.EffectContent;
 
 public class MainActivity extends AppCompatActivity implements EffectFragment.OnListFragmentInteractionListener {
 
-    // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-
     private static final int CAMERA_AND_LOCATION_PERMISSION_CODE = 1;
     private static final int RESULT_LOAD_IMAGE = 123;
     private static final int TAKE_PICTURE = 321;
-    private Uri imageUri;
 
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements EffectFragment.On
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photo));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);
     }

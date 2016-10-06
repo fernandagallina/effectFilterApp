@@ -12,7 +12,9 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:textColor="@android:color/white"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape"/>
 
     <TextView
             android:id="@+id/title"

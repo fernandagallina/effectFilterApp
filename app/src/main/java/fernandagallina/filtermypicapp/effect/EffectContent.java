@@ -14,23 +14,25 @@ public class EffectContent {
     static String[] titleEffect = {
             "Lomoish",
             "Duotone",
-            "BlackWhite",
+            "GrayScale",
             "Posterize",
             "Tint",
             "Vignette",
             "FishEye",
-            "Negative"
+            "Negative",
+            "Sepia"
     };
 
     static Integer[] imageId = {
             R.drawable.lomoish,
             R.drawable.duotone,
-            R.drawable.blackwhite,
+            R.drawable.gray,
             R.drawable.posterize,
             R.drawable.tint,
             R.drawable.vignette,
             R.drawable.fisheye,
-            R.drawable.negative
+            R.drawable.negative,
+            R.drawable.sepia
     };
 
     public static final List<EffectItem> ITEMS = new ArrayList<>();

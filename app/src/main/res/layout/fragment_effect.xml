@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <RelativeLayout
         android:id="@+id/effect_layout"
         android:layout_width="match_parent"
@@ -37,5 +38,23 @@
         android:layout_above="@id/effect_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/facebook_share"
+        android:layout_alignEnd="@id/image_preview"
+        android:layout_alignBottom="@id/image_preview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/facebook"
+        android:layout_margin="15dp" />
+
+    <ImageButton
+        android:id="@+id/save_button"
+        android:layout_alignBottom="@id/image_preview"
+        android:layout_toLeftOf="@id/facebook_share"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/save"
+        android:layout_margin="15dp" />
 
 </RelativeLayout>
