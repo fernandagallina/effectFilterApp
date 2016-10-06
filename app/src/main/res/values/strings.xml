@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FilterMyPicApp</string>
+    <string name="app_name">Effect Lab</string>
     <string name="camera_button_name">Access Camera</string>
     <string name="galeria_button_name">Access Galeria</string>
     <string name="take_picture">Take Picture</string>

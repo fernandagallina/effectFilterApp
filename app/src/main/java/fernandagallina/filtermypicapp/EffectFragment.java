@@ -10,17 +10,26 @@ import android.media.effect.EffectContext;
 import android.media.effect.EffectFactory;
 import android.net.Uri;
 import android.opengl.GLES20;
+import android.opengl.GLException;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.IntBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -49,6 +58,12 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
     @InjectView(R.id.list)
     RecyclerView recyclerView;
+
+    @InjectView(R.id.save_button)
+    ImageButton saveButton;
+
+    @InjectView(R.id.facebook_share)
+    ImageButton facebookShare;
 
     String stringUri;
     Bitmap bitmap;
@@ -124,6 +139,62 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         mEffectView.setRenderer(this);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = 0;
+
+        saveButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                saveImage();
+            }
+        });
+    }
+
+    private void saveImage() {
+        FileOutputStream out = null;
+        File file = new File(Environment.getExternalStorageDirectory(),  "effectPic.jpg");
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+
+            out.flush();
+            out.close();
+
+            MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), file.getName(), file.getName());
+            Toast.makeText(getActivity(), "File Saved", Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Save Failed", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Save Failed", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Bitmap createBitmapFromGLSurface(int x, int y, int w, int h, GL10 gl)
+            throws OutOfMemoryError {
+        int bitmapBuffer[] = new int[w * h];
+        int bitmapSource[] = new int[w * h];
+        IntBuffer intBuffer = IntBuffer.wrap(bitmapBuffer);
+        intBuffer.position(0);
+
+        try {
+            gl.glReadPixels(x, y, w, h, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, intBuffer);
+            int offset1, offset2;
+            for (int i = 0; i < h; i++) {
+                offset1 = i * w;
+                offset2 = (h - i - 1) * w;
+                for (int j = 0; j < w; j++) {
+                    int texturePixel = bitmapBuffer[offset1 + j];
+                    int blue = (texturePixel >> 16) & 0xff;
+                    int red = (texturePixel << 16) & 0x00ff0000;
+                    int pixel = (texturePixel & 0xff00ff00) | red | blue;
+                    bitmapSource[offset2 + j] = pixel;
+                }
+            }
+        } catch (GLException e) {
+            return null;
+        }
+
+        return Bitmap.createBitmap(bitmapSource, w, h, Bitmap.Config.ARGB_8888);
     }
 
     private void loadTextures() {
@@ -185,7 +256,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
             case R.drawable.vignette:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_VIGNETTE);
-                mEffect.setParameter("scale", .5f);
+                mEffect.setParameter("scale", .7f);
                 break;
 
             case R.drawable.sepia:
@@ -250,6 +321,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
     @Override
     public void onDrawFrame(GL10 gl) {
+
         if (!mInitialized) {
             //Only need to do this once
             mEffectContext = EffectContext.createWithCurrentGlContext();
@@ -263,6 +335,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
             applyEffect();
         }
         renderResult();
+        bitmap = createBitmapFromGLSurface(0, 0, mEffectView.getWidth(), mEffectView.getHeight(), gl);
     }
 
     public interface OnListFragmentInteractionListener {
