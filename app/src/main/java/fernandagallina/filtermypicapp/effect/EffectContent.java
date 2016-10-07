@@ -12,6 +12,7 @@ import fernandagallina.filtermypicapp.R;
 public class EffectContent {
 
     static String[] titleEffect = {
+            "x",
             "Lomoish",
             "Duotone",
             "GrayScale",
@@ -20,10 +21,13 @@ public class EffectContent {
             "Vignette",
             "FishEye",
             "Negative",
-            "Sepia"
+            "Sepia",
+            "Documentary",
+            "CrossProcess"
     };
 
     static Integer[] imageId = {
+            R.drawable.x,
             R.drawable.lomoish,
             R.drawable.duotone,
             R.drawable.gray,
@@ -32,12 +36,14 @@ public class EffectContent {
             R.drawable.vignette,
             R.drawable.fisheye,
             R.drawable.negative,
-            R.drawable.sepia
+            R.drawable.sepia,
+            R.drawable.documentary,
+            R.drawable.crossprocess
     };
 
     public static final List<EffectItem> ITEMS = new ArrayList<>();
 
-    private static final int COUNT = 9;
+    private static final int COUNT = 12;
 
     static {
         // Add some sample items.

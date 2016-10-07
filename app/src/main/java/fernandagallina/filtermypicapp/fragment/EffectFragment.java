@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.media.effect.Effect;
 import android.media.effect.EffectContext;
 import android.media.effect.EffectFactory;
@@ -17,10 +18,13 @@ import android.opengl.GLUtils;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -154,7 +158,9 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         super.onViewCreated(view, savedInstanceState);
 
         mEffectView.setEGLContextClientVersion(2);
+        mEffectView.setEGLConfigChooser(8, 8, 8, 8, 8, 0);
         mEffectView.setRenderer(this);
+        mEffectView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         mEffectView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
         mCurrentEffect = 0;
 
@@ -175,7 +181,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
     public void share() {
         final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/jpg");
+        shareIntent.setType("image/png");
         shareIntent.putExtra(Intent.EXTRA_STREAM, getImageUri());
         startActivity(Intent.createChooser(shareIntent, "Share image using"));
     }
@@ -189,7 +195,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
     private void saveImage() {
         FileOutputStream out;
-        File file = new File(Environment.getExternalStorageDirectory(),  "effectPic.jpg");
+        File file = new File(Environment.getExternalStorageDirectory(),  "effectPic.png");
         try {
             out = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -208,6 +214,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         }
     }
 
+    @Nullable
     private Bitmap createBitmapFromGLSurface(int x, int y, int w, int h, GL10 gl)
             throws OutOfMemoryError {
         int bitmapBuffer[] = new int[w * h];
@@ -261,6 +268,12 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_AUTOFIX);
                 break;
 
+            case R.drawable.x:
+                mEffect = effectFactory.createEffect(
+                        EffectFactory.EFFECT_ROTATE);
+                mEffect.setParameter("angle", 0);
+                break;
+
             case R.drawable.duotone:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_DUOTONE);
                 mEffect.setParameter("first_color", Color.GREEN);
@@ -281,6 +294,16 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
             case R.drawable.posterize:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_POSTERIZE);
+                break;
+
+            case R.drawable.crossprocess:
+                mEffect = effectFactory.createEffect(
+                        EffectFactory.EFFECT_CROSSPROCESS);
+                break;
+
+            case R.drawable.documentary:
+                mEffect = effectFactory.createEffect(
+                        EffectFactory.EFFECT_DOCUMENTARY);
                 break;
 
             case R.drawable.fisheye:
