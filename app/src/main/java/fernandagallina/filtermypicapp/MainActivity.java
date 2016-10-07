@@ -1,14 +1,18 @@
 package fernandagallina.filtermypicapp;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements EffectFragment.On
             }
 
             getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_main, new CaptureChoiceFragment())
+                    .replace(R.id.activity_main, new CaptureChoiceFragment(), "CAPTURE_CHOICE_FRAGMENT")
                     .commit();
         }
     }
@@ -92,16 +96,32 @@ public class MainActivity extends AppCompatActivity implements EffectFragment.On
 
         if(imageUri != null) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_main, new EffectFragment().newInstance(imageUri.toString()))
+                    .replace(R.id.activity_main, new EffectFragment().newInstance(imageUri.toString()), "EFFECT_FRAGMENT")
                     .commit();
+        } else {
+            Toast.makeText(this, "Unable to take picture :(", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onBackPressed() {
-        getFragmentManager().beginTransaction()
-            .replace(R.id.activity_main, new CaptureChoiceFragment())
-            .commit();
+
+        CaptureChoiceFragment captureChoiceFragment = (CaptureChoiceFragment) getFragmentManager().findFragmentByTag("CAPTURE_CHOICE_FRAGMENT");
+
+        if(captureChoiceFragment != null && captureChoiceFragment.isVisible()) {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                    .setMessage("Are you sure you want to exit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).setNegativeButton("No", null).show();
+        } else {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.activity_main, new CaptureChoiceFragment())
+                    .commit();
+        }
     }
 
     @Override
