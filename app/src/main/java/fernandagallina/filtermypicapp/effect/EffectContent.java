@@ -37,7 +37,7 @@ public class EffectContent {
 
     public static final List<EffectItem> ITEMS = new ArrayList<>();
 
-    private static final int COUNT = 8;
+    private static final int COUNT = 9;
 
     static {
         // Add some sample items.

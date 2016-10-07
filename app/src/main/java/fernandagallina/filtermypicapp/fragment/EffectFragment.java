@@ -106,6 +106,22 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         }
     }
 
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -118,6 +134,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         try {
             bitmap = android.provider.MediaStore.Images.Media
                             .getBitmap(cr, uri);
+            bitmap = getResizedBitmap(bitmap, 640);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -310,7 +327,8 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
     }
 
     private void applyEffect() {
-        mEffect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
+        if(mEffect != null)
+            mEffect.apply(mTextures[0], mImageWidth, mImageHeight, mTextures[1]);
     }
 
     private void renderResult() {

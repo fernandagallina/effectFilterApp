@@ -25,6 +25,7 @@ public class TextureRender {
                     " v_texcoord = a_texcoord;\n" +
                     "}\n";
     private static final String FRAGMENT_SHADER =
+            "#extension GL_OES_EGL_image_external : require\n" +
             "precision mediump float;\n" +
                     "uniform sampler2D tex_sampler;\n" +
                     "varying vec2 v_texcoord;\n" +
