@@ -1,5 +1,6 @@
 package fernandagallina.filtermypicapp.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -345,6 +346,25 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
             };
         } else {
             throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnListFragmentInteractionListener) {
+            mListener = new OnListFragmentInteractionListener() {
+                @Override
+                public void onListFragmentInteraction(EffectContent.EffectItem item) {
+
+                    mCurrentEffect = item.imageResource;
+
+                    mEffectView.requestRender();
+                }
+            };
+        } else {
+            throw new RuntimeException(activity.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
     }
