@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements EffectFragment.On
                     }).setNegativeButton("No", null).show();
         } else {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.activity_main, new CaptureChoiceFragment())
+                    .replace(R.id.activity_main, new CaptureChoiceFragment(), "CAPTURE_CHOICE_FRAGMENT")
                     .commit();
         }
     }

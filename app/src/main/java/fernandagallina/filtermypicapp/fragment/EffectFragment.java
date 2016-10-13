@@ -133,6 +133,8 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         View view = inflater.inflate(R.layout.fragment_effect, container, false);
         ButterKnife.inject(this, view);
 
+        recyclerView.setNestedScrollingEnabled(false);
+
         Uri uri = Uri.parse(stringUri);
         getActivity().getContentResolver().notifyChange(uri, null);
         ContentResolver cr = getActivity().getContentResolver();
