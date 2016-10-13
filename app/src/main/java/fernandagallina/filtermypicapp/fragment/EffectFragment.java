@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.media.effect.Effect;
@@ -86,6 +87,7 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
     private int mCurrentEffect;
     private int mImageWidth;
     private int mImageHeight;
+    private Bitmap sparkBitmap;
 
     public EffectFragment() {
     }
@@ -134,6 +136,8 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         ButterKnife.inject(this, view);
 
         recyclerView.setNestedScrollingEnabled(false);
+
+        sparkBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sparks);
 
         Uri uri = Uri.parse(stringUri);
         getActivity().getContentResolver().notifyChange(uri, null);
@@ -283,6 +287,18 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
                 mEffect.setParameter("second_color", Color.BLUE);
                 break;
 
+            case R.drawable.duotoneredblue:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_DUOTONE);
+                mEffect.setParameter("first_color", Color.RED);
+                mEffect.setParameter("second_color", Color.BLUE);
+                break;
+
+            case R.drawable.duotonepinkyellow:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_DUOTONE);
+                mEffect.setParameter("first_color", Color.MAGENTA);
+                mEffect.setParameter("second_color", Color.YELLOW);
+                break;
+
             case R.drawable.lomoish:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_LOMOISH);
                 break;
@@ -326,6 +342,11 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
             case R.drawable.sepia:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_SEPIA);
+                break;
+
+            case R.drawable.grain:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_GRAIN);
+                mEffect.setParameter("strength", .5f);
                 break;
 
             default:
