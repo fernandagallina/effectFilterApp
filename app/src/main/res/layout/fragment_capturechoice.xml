@@ -39,6 +39,26 @@
             android:layout_centerVertical="true"
             android:contentDescription="@string/galeria_button_name"/>
 
+        <TextView
+            android:id="@+id/camera_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camera_button_name"
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/galeria_button"
+            android:layout_toStartOf="@+id/empty_view"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/galeria_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/galeria_button_name"
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/galeria_button"
+            android:layout_marginLeft="20dp"
+            android:layout_toEndOf="@+id/empty_view" />
+
     </RelativeLayout>
 
 </RelativeLayout>

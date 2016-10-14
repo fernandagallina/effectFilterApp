@@ -12,7 +12,9 @@ import fernandagallina.filtermypicapp.R;
 public class EffectContent {
 
     static String[] titleEffect = {
-            "x",
+            "None",
+            "Warm",
+            "Cool",
             "Lomoish",
             "Duotone",
             "Duotone 2",
@@ -26,11 +28,16 @@ public class EffectContent {
             "Sepia",
             "Documentary",
             "CrossProcess",
-            "Grain"
+            "Grain",
+            "Horizontal",
+            "Vertical",
+            "Straighten"
     };
 
     static Integer[] imageId = {
             R.drawable.x,
+            R.drawable.warm,
+            R.drawable.cool,
             R.drawable.lomoish,
             R.drawable.duotone,
             R.drawable.duotoneredblue,
@@ -44,12 +51,15 @@ public class EffectContent {
             R.drawable.sepia,
             R.drawable.documentary,
             R.drawable.crossprocess,
-            R.drawable.grain
+            R.drawable.grain,
+            R.drawable.horizontal,
+            R.drawable.vertical,
+            R.drawable.sharpen
     };
 
     public static final List<EffectItem> ITEMS = new ArrayList<>();
 
-    private static final int COUNT = 15;
+    private static final int COUNT = 20;
 
     static {
         // Add some sample items.

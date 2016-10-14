@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -69,10 +70,10 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
     RecyclerView recyclerView;
 
     @InjectView(R.id.save_button)
-    ImageButton saveButton;
+    FloatingActionButton saveButton;
 
     @InjectView(R.id.share)
-    ImageButton shareButton;
+    FloatingActionButton shareButton;
 
     String stringUri;
     Bitmap bitmap;
@@ -87,7 +88,6 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
     private int mCurrentEffect;
     private int mImageWidth;
     private int mImageHeight;
-    private Bitmap sparkBitmap;
 
     public EffectFragment() {
     }
@@ -136,8 +136,6 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
         ButterKnife.inject(this, view);
 
         recyclerView.setNestedScrollingEnabled(false);
-
-        sparkBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sparks);
 
         Uri uri = Uri.parse(stringUri);
         getActivity().getContentResolver().notifyChange(uri, null);
@@ -281,6 +279,16 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
                 mEffect.setParameter("angle", 0);
                 break;
 
+            case R.drawable.warm:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_TEMPERATURE);
+                mEffect.setParameter("scale", 1f);
+                break;
+
+            case R.drawable.cool:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_TEMPERATURE);
+                mEffect.setParameter("scale", 0f);
+                break;
+
             case R.drawable.duotone:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_DUOTONE);
                 mEffect.setParameter("first_color", Color.GREEN);
@@ -346,7 +354,22 @@ public class EffectFragment extends Fragment implements GLSurfaceView.Renderer{
 
             case R.drawable.grain:
                 mEffect = effectFactory.createEffect(EffectFactory.EFFECT_GRAIN);
-                mEffect.setParameter("strength", .5f);
+                mEffect.setParameter("strength", .85f);
+                break;
+
+            case R.drawable.horizontal:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_FLIP);
+                mEffect.setParameter("horizontal", true);
+                break;
+
+            case R.drawable.vertical:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_FLIP);
+                mEffect.setParameter("vertical", true);
+                break;
+
+            case R.drawable.sharpen:
+                mEffect = effectFactory.createEffect(EffectFactory.EFFECT_STRAIGHTEN);
+                mEffect.setParameter("angle", -40f);
                 break;
 
             default:

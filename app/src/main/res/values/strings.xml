@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Effect Lab</string>
-    <string name="camera_button_name">Access Camera</string>
-    <string name="galeria_button_name">Access Galeria</string>
+    <string name="camera_button_name">Camera</string>
+    <string name="galeria_button_name">Gallery</string>
     <string name="take_picture">Take Picture</string>
     <string name="switch_camera">Switch Camera</string>
     <string name="facebook_app_id">1283570411673908</string>
